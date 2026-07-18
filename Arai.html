@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arai — Learn Football. Understand Every Rule. Play Smarter.</title>
+<meta name="description" content="Arai teaches football rules and skills with clear diagrams, curated videos, quizzes and a searchable glossary.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
+<style>
+  :root{
+    --black:#070D0A;
+    --primary:#0F172A;
+    --secondary:#1E293B;
+    --accent:#22C55E;
+    --accent-2:#34D399;
+    --glass:rgba(255,255,255,0.05);
+    --glass-strong:rgba(255,255,255,0.09);
+    --glass-border:rgba(255,255,255,0.10);
+    --text:#ffffff;
+    --muted:rgba(255,255,255,0.55);
+    --muted-2:rgba(255,255,255,0.4);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:
+      radial-gradient(ellipse 900px 900px at 50% -10%, rgba(34,197,94,0.18), transparent 60%),
+      radial-gradient(ellipse 600px 600px at 110% 110%, rgba(15,118,80,0.18), transparent 60%),
+      linear-gradient(180deg, #000000 0%, #06110B 45%, var(--primary) 100%);
+    background-attachment:fixed;
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  ::selection{background:rgba(34,197,94,.35);}
+  h1,h2,h3,h4{font-family:'Poppins',sans-serif; font-weight:700; letter-spacing:-0.02em;}
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit;}
+  input,textarea{font-family:inherit;}
+  img,svg{display:block;}
+  .container{max-width:1280px; margin:0 auto; padding:0 20px;}
+
+  /* ---------- glass ---------- */
+  .glass{
+    background:var(--glass);
+    border:1px solid var(--glass-border);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+  }
+  .glass-strong{
+    background:var(--glass-strong);
+    border:1px solid rgba(255,255,255,0.13);
+    backdrop-filter:blur(24px);
+    -webkit-backdrop-filter:blur(24px);
+  }
+  .rounded-xl{border-radius:16px;}
+  .rounded-2xl{border-radius:22px;}
+  .rounded-3xl{border-radius:28px;}
+  .rounded-full{border-radius:999px;}
+
+  /* ---------- nav ---------- */
+  #navbar{position:fixed; top:0; left:0; right:0; z-index:100; padding:20px 0; transition:padding .4s ease;}
+  #navbar.scrolled{padding:12px 0;}
+  .nav-inner{display:flex; align-items:center; justify-content:space-between; padding:14px 22px; box-shadow:0 8px 32px rgba(0,0,0,0.3); transition:.4s ease;}
+  #navbar.scrolled .nav-inner{padding:9px 20px;}
+  .logo{display:flex; align-items:center; gap:10px;}
+  .logo-mark{width:32px; height:32px; border-radius:10px; background:linear-gradient(135deg,#4ADE80,#16A34A); box-shadow:0 0 18px rgba(34,197,94,.55); display:flex; align-items:center; justify-content:center;}
+  .logo-mark span{width:11px; height:11px; border-radius:50%; background:rgba(255,255,255,.95);}
+  .logo-text{font-family:'Poppins'; font-weight:700; font-size:19px;}
+  .nav-links{display:flex; gap:2px;}
+  .nav-links button{padding:9px 16px; border-radius:999px; font-size:14px; font-weight:500; color:var(--muted); transition:.25s;}
+  .nav-links button:hover{color:#fff;}
+  .nav-links button.active{color:#fff; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.1);}
+  .nav-actions{display:flex; align-items:center; gap:8px;}
+  .icon-btn{width:36px; height:36px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); display:flex; align-items:center; justify-content:center; color:var(--muted); transition:.25s;}
+  .icon-btn:hover{color:#fff; background:rgba(255,255,255,.12);}
+  .icon-btn svg{width:16px; height:16px;}
+  #mobileMenuBtn{display:none;}
+  #mobileMenu{display:none; margin-top:8px; padding:10px; flex-direction:column; gap:2px;}
+  #mobileMenu button{text-align:left; padding:11px 16px; border-radius:14px; font-size:14px; font-weight:500; color:var(--muted);}
+  #mobileMenu button.active{background:rgba(255,255,255,.1); color:#fff;}
+  #searchPanel{position:absolute; right:0; top:calc(100% + 10px); width:320px; padding:12px; display:none; box-shadow:0 20px 50px rgba(0,0,0,.4);}
+  #searchPanel input{width:100%; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:10px 12px; font-size:14px; color:#fff; outline:none;}
+  #searchPanel input:focus{border-color:rgba(34,197,94,.6);}
+  #searchResults{margin-top:8px; max-height:220px; overflow:auto; display:flex; flex-direction:column; gap:2px;}
+  .search-result{display:flex; justify-content:space-between; padding:9px 10px; border-radius:10px; font-size:13px; color:rgba(255,255,255,.8);}
+  .search-result:hover{background:rgba(255,255,255,.06);}
+  .search-result span.tag{font-size:10px; text-transform:uppercase; letter-spacing:.05em; color:var(--accent-2);}
+
+  @media (max-width:1024px){
+    .nav-links{display:none;}
+    #mobileMenuBtn{display:flex;}
+  }
+
+  /* ---------- hero ---------- */
+  #hero{position:relative; min-height:100vh; display:flex; align-items:center; padding:150px 0 100px; overflow:hidden;}
+  .grid-overlay{position:absolute; inset:0; opacity:.14; z-index:-1;
+    background-image:linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px);
+    background-size:64px 64px;
+    -webkit-mask-image:radial-gradient(ellipse 80% 55% at 50% 25%, black 5%, transparent 70%);
+    mask-image:radial-gradient(ellipse 80% 55% at 50% 25%, black 5%, transparent 70%);
+  }
+  .badge-pill{display:inline-flex; align-items:center; gap:8px; padding:8px 16px; font-size:12px; font-weight:500; color:#86efac; margin-bottom:26px;}
+  .dot-pulse{width:6px; height:6px; border-radius:50%; background:#4ADE80; animation:pulse 1.6s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:.3;}}
+  #hero h1{font-size:clamp(40px,7vw,68px); line-height:1.02;}
+  .accent-text{background:linear-gradient(90deg,#6EE7B7,#34D399,#5EEAD4); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  #hero p.lead{margin-top:22px; color:var(--muted); font-size:18px; max-width:560px; line-height:1.6;}
+  .hero-ctas{display:flex; flex-wrap:wrap; gap:12px; margin-top:34px;}
+  .btn-primary{display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:#04180C; font-weight:600; padding:15px 26px; border-radius:18px; box-shadow:0 8px 30px rgba(34,197,94,.35); transition:.25s;}
+  .btn-primary:hover{background:#4ADE80; transform:translateY(-2px); box-shadow:0 10px 36px rgba(34,197,94,.5);}
+  .btn-secondary{display:inline-flex; align-items:center; gap:8px; color:#fff; font-weight:600; padding:15px 26px; border-radius:18px; transition:.25s;}
+  .btn-secondary:hover{background:rgba(255,255,255,.12); transform:translateY(-2px);}
+  .btn-primary svg,.btn-secondary svg{width:16px; height:16px;}
+  .stats-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:56px; max-width:640px;}
+  .stat-card{padding:16px;}
+  .stat-card .val{font-family:'Poppins'; font-weight:700; font-size:24px;}
+  .stat-card .lab{color:var(--muted-2); font-size:12px; margin-top:4px;}
+  @media (max-width:640px){.stats-grid{grid-template-columns:repeat(2,1fr);}}
+
+  .ball{position:absolute; right:6%; top:20%; width:110px; height:110px; border-radius:50%; background:radial-gradient(circle at 32% 30%, #fff, #d8d8d8); box-shadow:0 0 60px rgba(255,255,255,.22); animation:float 6s ease-in-out infinite;}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-18px) rotate(10deg);}}
+  @media (max-width:900px){.ball{display:none;}}
+
+  /* ---------- section heading ---------- */
+  .eyebrow{color:var(--accent-2); font-size:12px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; margin-bottom:12px;}
+  .section-title{font-size:clamp(28px,4vw,36px);}
+  .section-desc{color:var(--muted); margin-top:14px; line-height:1.6; max-width:600px;}
+  section{padding:96px 0; position:relative;}
+  .center{text-align:center;}
+  .center .section-desc{margin-left:auto; margin-right:auto;}
+
+  /* ---------- rules ---------- */
+  .rules-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:46px;}
+  @media (max-width:960px){.rules-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:640px){.rules-grid{grid-template-columns:1fr;}}
+  .rule-card{padding:24px; cursor:pointer; transition:.3s;}
+  .rule-card:hover{background:rgba(255,255,255,.08); transform:translateY(-4px);}
+  .rule-icon{width:44px; height:44px; border-radius:14px; background:rgba(34,197,94,.15); border:1px solid rgba(74,222,128,.2); display:flex; align-items:center; justify-content:center; color:#4ADE80; margin-bottom:16px;}
+  .rule-icon svg{width:19px; height:19px;}
+  .rule-card h4{font-size:18px;}
+  .rule-card p{color:var(--muted-2); font-size:14px; margin-top:8px; line-height:1.55;}
+  .read-more{display:inline-flex; align-items:center; gap:5px; color:#4ADE80; font-size:14px; font-weight:500; margin-top:14px;}
+  .read-more svg{width:14px; height:14px;}
+
+  /* ---------- modal ---------- */
+  .modal-overlay{position:fixed; inset:0; z-index:200; display:none; align-items:center; justify-content:center; padding:16px;}
+  .modal-overlay.open{display:flex;}
+  .modal-backdrop{position:absolute; inset:0; background:rgba(0,0,0,.72); backdrop-filter:blur(4px);}
+  .modal-box{position:relative; width:100%; max-width:680px; max-height:85vh; overflow:auto; padding:34px; box-shadow:0 30px 80px rgba(0,0,0,.5);}
+  .modal-close{position:absolute; top:20px; right:20px; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,.1); display:flex; align-items:center; justify-content:center;}
+  .modal-close svg{width:16px; height:16px;}
+  .modal-head{display:flex; align-items:center; gap:14px; margin-bottom:18px;}
+  .modal-head .rule-icon{margin:0;}
+  .modal-head h3{font-size:24px;}
+  .modal-box p.lead{color:var(--muted); line-height:1.65;}
+  .modal-block{margin-top:22px; padding:18px; border-radius:16px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);}
+  .modal-block .label{color:#4ADE80; font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; margin-bottom:8px;}
+  .modal-block p{color:var(--muted-2); font-size:14px; line-height:1.6;}
+  .modal-sub{margin-top:22px;}
+  .modal-sub .label2{font-size:14px; font-weight:600; margin-bottom:10px;}
+  .modal-sub ul{list-style:none; display:flex; flex-direction:column; gap:8px;}
+  .modal-sub li{display:flex; gap:9px; font-size:14px; color:var(--muted); line-height:1.5;}
+  .modal-sub li svg{width:15px; height:15px; flex-shrink:0; margin-top:2px;}
+  .tip-box{margin-top:22px; padding:16px; border-radius:16px; background:rgba(34,197,94,.1); border:1px solid rgba(74,222,128,.2); font-size:14px; color:#bbf7d0; line-height:1.55;}
+
+  /* ---------- video section ---------- */
+  .video-controls{display:flex; flex-direction:column; gap:16px; margin-top:40px;}
+  .video-controls-top{display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between; align-items:center;}
+  .search-box{position:relative; max-width:340px; width:100%;}
+  .search-box svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:15px; height:15px; color:var(--muted-2);}
+  .search-box input{width:100%; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:12px 14px 12px 38px; font-size:14px; color:#fff; outline:none;}
+  .search-box input:focus{border-color:rgba(34,197,94,.5);}
+  .pill-row{display:flex; gap:8px; flex-wrap:wrap;}
+  .pill{padding:8px 14px; border-radius:999px; font-size:12px; font-weight:500; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.04); color:var(--muted);}
+  .pill:hover{background:rgba(255,255,255,.08);}
+  .pill.active{background:var(--accent); color:#04180C; border-color:var(--accent);}
+  .pill.cat{padding:7px 13px; background:transparent; border-color:rgba(255,255,255,.08); color:var(--muted-2);}
+  .pill.cat.active{background:rgba(255,255,255,.15); color:#fff; border-color:rgba(255,255,255,.2);}
+
+  .video-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:34px;}
+  @media (max-width:960px){.video-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:640px){.video-grid{grid-template-columns:1fr;}}
+  .video-card{overflow:hidden; transition:.3s;}
+  .video-card:hover{transform:translateY(-4px);}
+  .video-thumb{position:relative; aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; cursor:pointer; overflow:hidden;}
+  .video-thumb .play-btn{width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.25); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; transition:.25s;}
+  .video-thumb .play-btn svg{width:20px; height:20px; margin-left:2px;}
+  .video-card:hover .play-btn{background:rgba(34,197,94,.9); transform:scale(1.1);}
+  .duration-badge{position:absolute; bottom:10px; right:10px; font-size:11px; background:rgba(0,0,0,.6); backdrop-filter:blur(4px); padding:3px 8px; border-radius:6px; display:flex; align-items:center; gap:4px;}
+  .duration-badge svg{width:10px; height:10px;}
+  .cat-badge{position:absolute; top:10px; left:10px; font-size:10px; font-weight:700; color:#04180C; padding:3px 8px; border-radius:6px;}
+  .video-info{padding:16px;}
+  .video-info h4{font-size:14px; font-weight:500; line-height:1.4;}
+  .video-meta{display:flex; align-items:center; justify-content:space-between; margin-top:12px;}
+  .video-meta-left{display:flex; align-items:center; gap:12px; color:var(--muted-2); font-size:12px;}
+  .video-meta-left span{display:flex; align-items:center; gap:4px;}
+  .video-meta-left svg{width:12px; height:12px;}
+  .fav-btn svg{width:15px; height:15px; color:rgba(255,255,255,.3); transition:.2s;}
+  .fav-btn.active svg{color:#fb7185; fill:#fb7185;}
+  .empty-msg{text-align:center; color:var(--muted-2); font-size:14px; margin-top:50px;}
+
+  .player-overlay{position:fixed; inset:0; z-index:200; display:none; align-items:center; justify-content:center; padding:16px;}
+  .player-overlay.open{display:flex;}
+  .player-box{position:relative; width:100%; max-width:800px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,.5);}
+  .player-box iframe{width:100%; aspect-ratio:16/9; border:0;}
+  .player-close{position:absolute; top:14px; right:14px; z-index:5; width:36px; height:36px; border-radius:50%; background:rgba(0,0,0,.5); display:flex; align-items:center; justify-content:center;}
+  .player-close svg{width:16px; height:16px;}
+  .player-title{padding:18px;}
+
+  /* ---------- quiz ---------- */
+  .quiz-box{max-width:640px; margin:44px auto 0; padding:38px;}
+  .quiz-start{text-align:center; padding:24px 0;}
+  .quiz-icon{width:56px; height:56px; border-radius:18px; background:rgba(34,197,94,.15); border:1px solid rgba(74,222,128,.2); display:flex; align-items:center; justify-content:center; color:#4ADE80; margin:0 auto 18px;}
+  .quiz-icon svg{width:24px; height:24px;}
+  .quiz-start h3{font-size:24px;}
+  .quiz-start p{color:var(--muted-2); font-size:14px; margin-top:8px;}
+  #quizArea{display:none;}
+  .quiz-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; font-size:12px;}
+  .quiz-top .qcount{color:var(--muted-2); font-weight:500;}
+  .quiz-top .qtimer{display:flex; align-items:center; gap:5px; font-weight:600; color:#4ADE80;}
+  .quiz-top .qtimer.warn{color:#fb7185;}
+  .quiz-top .qtimer svg{width:13px; height:13px;}
+  .quiz-progress{height:6px; border-radius:999px; background:rgba(255,255,255,.1); overflow:hidden; margin-bottom:26px;}
+  .quiz-progress-bar{height:100%; background:var(--accent); transition:width .5s;}
+  #quizQuestion{font-size:18px; line-height:1.4;}
+  .quiz-options{display:flex; flex-direction:column; gap:10px; margin-top:22px;}
+  .quiz-opt{text-align:left; padding:14px 20px; border-radius:16px; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.04); font-size:14px; font-weight:500; color:rgba(255,255,255,.8); transition:.2s;}
+  .quiz-opt:hover:not(.locked){background:rgba(255,255,255,.08);}
+  .quiz-opt.correct{background:rgba(34,197,94,.15); border-color:rgba(74,222,128,.4); color:#bbf7d0;}
+  .quiz-opt.wrong{background:rgba(244,63,94,.15); border-color:rgba(251,113,133,.4); color:#fecdd3;}
+  .quiz-opt.dim{background:rgba(255,255,255,.02); border-color:rgba(255,255,255,.05); color:rgba(255,255,255,.3);}
+  .quiz-why{margin-top:18px; padding:16px; border-radius:16px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); font-size:14px; color:var(--muted); line-height:1.55; display:none;}
+  .quiz-next-row{display:flex; justify-content:flex-end; margin-top:26px;}
+  #quizNextBtn{display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:#04180C; font-weight:600; padding:11px 22px; border-radius:16px; opacity:.3; pointer-events:none; transition:.2s;}
+  #quizNextBtn.enabled{opacity:1; pointer-events:auto;}
+  #quizNextBtn svg{width:15px; height:15px;}
+  #quizDone{display:none; text-align:center; padding:14px 0;}
+  #quizDone h3{font-size:32px;}
+  #quizDone p{color:var(--muted-2); font-size:14px; margin-top:8px;}
+  .star-row{display:flex; justify-content:center; gap:4px; margin-top:16px;}
+  .star-row svg{width:17px; height:17px; color:rgba(255,255,255,.15);}
+  .star-row svg.filled{color:#fbbf24; fill:#fbbf24;}
+
+  /* ---------- glossary ---------- */
+  .glossary-controls{display:flex; flex-direction:column; gap:16px; margin-top:38px;}
+  @media (min-width:640px){.glossary-controls{flex-direction:row; justify-content:space-between; align-items:center;}}
+  .letter-row{display:flex; gap:5px; flex-wrap:wrap;}
+  .letter-btn{width:30px; height:30px; border-radius:9px; font-size:12px; font-weight:600; background:rgba(255,255,255,.04); color:var(--muted-2);}
+  .letter-btn.active{background:var(--accent); color:#04180C;}
+  .glossary-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:34px;}
+  @media (max-width:640px){.glossary-grid{grid-template-columns:1fr;}}
+  .gloss-card{padding:18px;}
+  .gloss-card .term{color:#4ADE80; font-family:'Poppins'; font-weight:700;}
+  .gloss-card p{color:var(--muted-2); font-size:13px; margin-top:6px; line-height:1.55;}
+
+  /* ---------- about ---------- */
+  .about-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:46px;}
+  @media (max-width:768px){.about-grid{grid-template-columns:1fr;}}
+  .about-card{padding:26px; text-align:center;}
+  .about-card svg{width:22px; height:22px; color:#4ADE80; margin:0 auto 12px;}
+  .about-card .t{font-size:14px; font-weight:600;}
+  .about-card .d{color:var(--muted-2); font-size:12px; margin-top:8px; line-height:1.55;}
+
+  /* ---------- contact ---------- */
+  .contact-box{max-width:520px; margin:38px auto 0; padding:30px;}
+  .contact-box input,.contact-box textarea{width:100%; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:14px; padding:13px 16px; font-size:14px; color:#fff; outline:none; margin-bottom:14px;}
+  .contact-box textarea{resize:none;}
+  .contact-box input:focus,.contact-box textarea:focus{border-color:rgba(34,197,94,.5);}
+  .contact-box button{width:100%; background:var(--accent); color:#04180C; font-weight:600; padding:13px; border-radius:14px;}
+  #contactDone{display:none; text-align:center; padding:20px 0;}
+  #contactDone svg{width:28px; height:28px; color:#4ADE80; margin:0 auto 10px;}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid rgba(255,255,255,.1); padding:60px 0 30px;}
+  .footer-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:40px;}
+  @media (max-width:900px){.footer-grid{grid-template-columns:repeat(2,1fr);}}
+  .footer-grid h5{font-size:14px; font-weight:600; margin-bottom:12px;}
+  .footer-grid p{color:var(--muted-2); font-size:14px; line-height:1.6;}
+  .footer-grid ul{list-style:none; display:flex; flex-direction:column; gap:8px;}
+  .footer-grid li{color:var(--muted-2); font-size:14px;}
+  .news-row{display:flex; gap:8px;}
+  .news-row input{flex:1; min-width:0; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:10px 12px; font-size:12px; color:#fff; outline:none;}
+  .news-row button{background:var(--accent); color:#04180C; padding:0 14px; border-radius:12px; font-size:12px; font-weight:600;}
+  .footer-bottom{max-width:1280px; margin:40px auto 0; padding:20px 20px 0; border-top:1px solid rgba(255,255,255,.06); color:var(--muted-2); font-size:12px;}
+</style>
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<div id="navbar">
+  <div class="container" style="position:relative;">
+    <div class="nav-inner glass-strong rounded-3xl">
+      <button class="logo" onclick="goTo('home')">
+        <span class="logo-mark"><span></span></span>
+        <span class="logo-text">Arai</span>
+      </button>
+      <nav class="nav-links" id="navLinks"></nav>
+      <div class="nav-actions">
+        <div style="position:relative;">
+          <button class="icon-btn" onclick="toggleSearch()" data-feather="search"></button>
+          <div id="searchPanel" class="glass-strong rounded-2xl">
+            <input id="searchInput" placeholder="Search rules, videos, glossary…" oninput="doSearch()">
+            <div id="searchResults"></div>
+          </div>
+        </div>
+        <button class="icon-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()" data-feather="menu"></button>
+      </div>
+    </div>
+    <nav id="mobileMenu" class="glass-strong rounded-2xl"></nav>
+  </div>
+</div>
+
+<!-- ================= HERO ================= -->
+<section id="hero">
+  <div class="grid-overlay"></div>
+  <div class="ball"></div>
+  <div class="container">
+    <div style="max-width:680px;">
+      <div class="badge-pill glass-strong rounded-full"><span class="dot-pulse"></span> Updated for the current FIFA Laws of the Game</div>
+      <h1>Learn Football.<br><span class="accent-text">Understand Every Rule.</span><br>Play Smarter.</h1>
+      <p class="lead">Arai turns the Laws of the Game into clear, visual lessons — built for new fans, coaches, and players who want the real rules explained without the jargon.</p>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="goTo('rules')"><span data-feather="book-open"></span> Learn Rules <span data-feather="chevron-right"></span></button>
+        <button class="btn-secondary glass" onclick="goTo('video-library')"><span data-feather="play"></span> Watch Videos</button>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card glass rounded-2xl"><div class="val" id="statRules">0+</div><div class="lab">Rules Explained</div></div>
+        <div class="stat-card glass rounded-2xl"><div class="val" id="statVideos">0+</div><div class="lab">Learning Videos</div></div>
+        <div class="stat-card glass rounded-2xl"><div class="val">Beginner</div><div class="lab">Friendly</div></div>
+        <div class="stat-card glass rounded-2xl"><div class="val">Live</div><div class="lab">FIFA Updates</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RULES ================= -->
+<section id="rules">
+  <div class="container">
+    <div class="eyebrow">The Laws of the Game</div>
+    <h2 class="section-title">Every rule, explained simply</h2>
+    <p class="section-desc">Sixteen core rules, each broken down with diagrams, real match examples, and the mistakes beginners tend to make.</p>
+    <div class="rules-grid" id="rulesGrid"></div>
+  </div>
+</section>
+
+<!-- ================= VIDEO LIBRARY ================= -->
+<section id="video-library">
+  <div class="container">
+    <div class="eyebrow">Video Library</div>
+    <h2 class="section-title">Watch, don't just read</h2>
+    <p class="section-desc">Curated instructional videos across every skill level, from your first touch to reading a formation.</p>
+    <div class="video-controls">
+      <div class="video-controls-top">
+        <div class="search-box"><span data-feather="search"></span><input id="videoSearch" placeholder="Search videos…" oninput="renderVideos()"></div>
+        <div class="pill-row" id="diffRow"></div>
+      </div>
+      <div class="pill-row" id="catRow"></div>
+    </div>
+    <div class="video-grid" id="videoGrid"></div>
+    <p class="empty-msg" id="videoEmpty" style="display:none;">No videos match those filters — try widening your search.</p>
+  </div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section id="quiz">
+  <div class="container center">
+    <div class="eyebrow">Test Yourself</div>
+    <h2 class="section-title">Think you know the rules?</h2>
+    <p class="section-desc">Six quick questions pulled straight from real match scenarios.</p>
+    <div class="quiz-box glass-strong rounded-3xl" style="text-align:left;">
+      <div id="quizStart" class="quiz-start">
+        <div class="quiz-icon"><span data-feather="help-circle"></span></div>
+        <h3>Ready when you are</h3>
+        <p>15 seconds per question. No pressure — just instinct.</p>
+        <button class="btn-primary" style="margin-top:22px;" onclick="startQuiz()">Start Quiz <span data-feather="arrow-right"></span></button>
+      </div>
+      <div id="quizArea">
+        <div class="quiz-top">
+          <span class="qcount" id="qCount"></span>
+          <span class="qtimer" id="qTimer"><span data-feather="clock"></span> <span id="qTimerVal">15</span>s</span>
+        </div>
+        <div class="quiz-progress"><div class="quiz-progress-bar" id="qProgress"></div></div>
+        <h3 id="quizQuestion"></h3>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-why" id="quizWhy"></div>
+        <div class="quiz-next-row"><button id="quizNextBtn" onclick="nextQuestion()">Next <span data-feather="chevron-right"></span></button></div>
+      </div>
+      <div id="quizDone">
+        <div class="quiz-icon"><span data-feather="award"></span></div>
+        <h3 id="quizScore">0 / 6</h3>
+        <p id="quizVerdict"></p>
+        <div class="star-row" id="starRow"></div>
+        <button class="btn-secondary glass" style="margin:20px auto 0;" onclick="startQuiz()"><span data-feather="rotate-ccw"></span> Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GLOSSARY ================= -->
+<section id="glossary">
+  <div class="container">
+    <div class="eyebrow">Glossary</div>
+    <h2 class="section-title">The football dictionary</h2>
+    <p class="section-desc">From advantage to yellow card — every term explained in one line.</p>
+    <div class="glossary-controls">
+      <div class="search-box"><span data-feather="search"></span><input id="glossSearch" placeholder="Search a term…" oninput="renderGlossary()"></div>
+      <div class="letter-row" id="letterRow"></div>
+    </div>
+    <div class="glossary-grid" id="glossaryGrid"></div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="container center">
+    <div class="eyebrow">About Arai</div>
+    <h2 class="section-title">Built for people new to the beautiful game</h2>
+    <p class="section-desc">Arai exists because the Laws of the Game are written for referees, not fans. We translate them into plain language, real diagrams, and video — so anyone can watch a match and actually understand every whistle.</p>
+    <div class="about-grid">
+      <div class="about-card glass rounded-2xl"><span data-feather="award"></span><div class="t">Beginner First</div><div class="d">No football background assumed — every explanation starts from zero.</div></div>
+      <div class="about-card glass rounded-2xl"><span data-feather="book-open"></span><div class="t">FIFA-Accurate</div><div class="d">Rules stay current with the official Laws of the Game.</div></div>
+      <div class="about-card glass rounded-2xl"><span data-feather="video"></span><div class="t">Watch & Learn</div><div class="d">Every rule pairs with real match footage, not just text.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <div class="container center">
+    <div class="eyebrow">Contact</div>
+    <h2 class="section-title">Questions, feedback, ideas?</h2>
+    <p class="section-desc">Tell us what rule confused you at your last match — it might become our next lesson.</p>
+    <div class="contact-box glass-strong rounded-3xl" style="text-align:left;">
+      <form id="contactForm" onsubmit="submitContact(event)">
+        <input required placeholder="Your name">
+        <input required type="email" placeholder="Email address">
+        <textarea required rows="4" placeholder="Your message"></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      <div id="contactDone"><span data-feather="check"></span><p>Message sent — we'll get back to you soon.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <div class="logo" style="margin-bottom:12px;"><span class="logo-mark" style="width:28px;height:28px;"><span style="width:9px;height:9px;"></span></span><span class="logo-text" style="font-size:16px;">Arai</span></div>
+      <p>Learn football rules, understand every whistle, watch the game smarter.</p>
+    </div>
+    <div><h5>Football Resources</h5><ul><li>Rules Library</li><li>Video Lessons</li><li>Quiz Center</li><li>Glossary</li></ul></div>
+    <div><h5>Company</h5><ul><li>About Arai</li><li>Privacy Policy</li><li>Terms of Service</li><li>Contact</li></ul></div>
+    <div>
+      <h5>Stay Updated</h5>
+      <p style="margin-bottom:12px; font-size:12px;">Get new rule breakdowns in your inbox.</p>
+      <div class="news-row"><input placeholder="Email"><button>Join</button></div>
+    </div>
+  </div>
+  <div class="footer-bottom">© <span id="year"></span> Arai. All rights reserved.</div>
+</footer>
+
+<!-- ================= MODALS ================= -->
+<div class="modal-overlay" id="ruleModal">
+  <div class="modal-backdrop" onclick="closeRuleModal()"></div>
+  <div class="modal-box glass-strong rounded-3xl">
+    <button class="modal-close" onclick="closeRuleModal()"><span data-feather="x"></span></button>
+    <div id="ruleModalContent"></div>
+  </div>
+</div>
+
+<div class="player-overlay" id="playerModal">
+  <div class="modal-backdrop" onclick="closePlayer()"></div>
+  <div class="player-box glass-strong rounded-3xl">
+    <button class="player-close" onclick="closePlayer()"><span data-feather="x"></span></button>
+    <div id="playerFrame"></div>
+    <div class="player-title"><h4 id="playerTitle" style="font-size:15px; font-weight:600;"></h4></div>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   DATA
+===================================================================== */
+const RULES = [
+  {id:"offside", title:"Offside Rule", icon:"flag",
+    short:"A player is offside if nearer the goal line than both the ball and the second-last opponent when the ball is played to them.",
+    diagram:"The attacker must have at least two opponents (usually the last defender + goalkeeper) level or between them and the goal line at the moment the ball is passed.",
+    examples:["A striker sprints in behind the last defender before the pass is played — offside.","A winger receives the ball in their own half — never offside there.","A player level with the second-last defender is onside, not offside."],
+    mistakes:["Thinking offside is judged when the player receives the ball, not when it's played.","Assuming any position ahead of the ball is offside — it's about the defensive line."],
+    tip:"Watch the moment of the pass, not the run. That single frame decides everything."},
+  {id:"fouls", title:"Fouls", icon:"alert-triangle",
+    short:"Careless, reckless, or excessive-force challenges on an opponent are penalised with a direct free kick or penalty.",
+    diagram:"Referees weigh intent, force, and the point of contact — the same tackle can be a foul at one speed and fair at another.",
+    examples:["Sliding through the back of an opponent's legs.","Pulling a shirt to stop a run.","Charging an opponent shoulder-to-shoulder for the ball — usually fine."],
+    mistakes:["Believing all contact is a foul — fair shoulder charges are legal.","Missing that fouls inside the box become penalties, not just free kicks."],
+    tip:"Ask: was the challenge for the ball, or through the player?"},
+  {id:"yellow", title:"Yellow Cards", icon:"shield",
+    short:"A caution shown for unsporting behaviour, dissent, persistent fouling, or delaying the restart of play.",
+    diagram:"One yellow is a warning; a second yellow in the same match becomes a red and an early trip to the dressing room.",
+    examples:["Cynically pulling back a counter-attacking opponent.","Excessive celebration after a goal.","Persistently arguing with the referee."],
+    mistakes:["Thinking a yellow card wipes clean at half time — it carries the whole match.","Assuming two yellows are treated separately — they combine into a red."],
+    tip:"A player already booked is one careless challenge away from an early exit — teams often substitute them."},
+  {id:"red", title:"Red Cards", icon:"x-circle",
+    short:"Immediate dismissal for serious foul play, violent conduct, denying an obvious goal-scoring chance, or two yellows.",
+    diagram:"The sent-off player leaves for the rest of the match and their team plays the remainder a player short.",
+    examples:["A last-man foul stopping a clear run on goal.","Serious foul play with excessive force.","Violent conduct, on or off the ball."],
+    mistakes:["Thinking a substitute can replace the dismissed player — the team stays down a player.","Assuming red cards only come from violence — denying a goal chance counts too."],
+    tip:"Red doesn't always mean violent — denying a clear goal-scoring opportunity is enough."},
+  {id:"penalty", title:"Penalty Kick", icon:"target",
+    short:"Awarded for a direct free-kick offence committed by the defending team inside their own penalty area.",
+    diagram:"Taken from the penalty spot, 11 metres out, with only the goalkeeper allowed to defend the goal.",
+    examples:["A defender handles the ball inside the box.","A goalkeeper brings down an attacker in the area.","A foul just outside the box is a free kick, not a penalty."],
+    mistakes:["Believing the foul only counts if it happens near the goal — it's about the ball's location, not the player's.","Forgetting the goalkeeper must stay on the line until the ball is kicked."],
+    tip:"It's the location of the offence that matters, not where the ball ends up."},
+  {id:"freekick", title:"Free Kick", icon:"arrow-right",
+    short:"A restart awarded after a foul — direct kicks can score straight away, indirect kicks must touch another player first.",
+    diagram:"Opponents must retreat at least 9.15m (10 yards) from the ball unless standing on their own goal line.",
+    examples:["A direct free kick curled straight into the top corner.","An indirect free kick tapped sideways before a shot.","A wall lining up 10 yards back to block the strike."],
+    mistakes:["Confusing direct and indirect kicks — an indirect goal doesn't count until touched twice.","Standing inside the 10-yard wall distance before the kick is taken."],
+    tip:"If the referee raises one arm, it's indirect — it needs a second touch to count as a goal."},
+  {id:"corner", title:"Corner Kick", icon:"corner-down-right",
+    short:"Awarded to the attacking side when the ball fully crosses the goal line off a defender, last touched by them.",
+    diagram:"Taken from the corner arc nearest to where the ball went out, with defenders retreating 9.15m.",
+    examples:["A defender's clearance deflects behind for a corner.","A goalkeeper tips a shot over the bar — corner to the attackers.","The ball rolling out off an attacker is a goal kick instead."],
+    mistakes:["Thinking any ball out of play near the goal is a corner — it must be the defending side's last touch.","Placing the ball outside the corner arc."],
+    tip:"Last touch decides it: off a defender it's a corner, off an attacker it's a goal kick."},
+  {id:"goalkick", title:"Goal Kick", icon:"rotate-ccw",
+    short:"Awarded to the defending team when the ball, last touched by an attacker, fully crosses the goal line.",
+    diagram:"Can be taken from anywhere inside the goal area, and the ball is live the instant it's kicked.",
+    examples:["A striker's shot sails wide and out — goal kick.","A through-ball run out of play off the last attacking touch.","The goalkeeper rolling out a short goal kick to a full back."],
+    mistakes:["Believing the ball must leave the penalty area to be back in play — the rule changed; it's live once kicked.","Confusing it with a corner when the last touch was actually an attacker's."],
+    tip:"Since 2019, the ball is in play the moment it's kicked — no need to wait for it to leave the box."},
+  {id:"throwin", title:"Throw-In", icon:"repeat",
+    short:"Restarts play after the ball fully crosses a touchline, taken by the team that didn't touch it last.",
+    diagram:"Both feet must stay on or behind the line, and the ball is delivered with both hands from behind the head.",
+    examples:["A cross deflecting out for a throw to the attacking side.","A foul throw with one foot lifted — possession reversed.","A long throw aimed into the box like a corner."],
+    mistakes:["Lifting a foot off the ground during the throw.","Throwing with one hand or from in front of the head."],
+    tip:"You can't score directly from a throw-in — it must touch another player first."},
+  {id:"handball", title:"Handball", icon:"circle",
+    short:"An offence when a player deliberately touches the ball with hand or arm, or gains unfair advantage from it.",
+    diagram:"Referees judge the position of the arm relative to the body and whether it made the body unnaturally bigger.",
+    examples:["Blocking a goal-bound shot with an outstretched arm.","The ball striking a tucked-in arm at close range — often not given.","Scoring off your own hand or arm — always disallowed."],
+    mistakes:["Assuming all hand contact is punished — accidental, tight-to-body contact often isn't.","Forgetting that even accidental handball before a goal cancels the goal."],
+    tip:"Ask if the arm made the body bigger than a natural position — that's usually the deciding factor."},
+  {id:"advantage", title:"Advantage Rule", icon:"check",
+    short:"The referee lets play continue after a foul if the fouled team keeps a promising position.",
+    diagram:"Signalled with both arms swept forward; the original foul can still be carded moments later.",
+    examples:["A tripped attacker's teammate races clear on goal — play continues.","The advantage fizzles out — referee brings play back for the free kick.","A cynical foul still earns a yellow even after advantage is played."],
+    mistakes:["Thinking advantage means the foul is forgotten — cards can still follow.","Stopping play instead of running on when advantage is signalled."],
+    tip:"If the advantage doesn't develop within seconds, the referee can still stop play for the original foul."},
+  {id:"var", title:"VAR", icon:"video",
+    short:"Video Assistant Referee reviews clear and obvious errors on goals, penalties, red cards, and mistaken identity.",
+    diagram:"The referee can be advised by video officials or view the replay themselves at a pitchside monitor.",
+    examples:["A marginal offside checked with virtual lines before a goal stands.","A missed penalty-box foul awarded after review.","A red card downgraded after an on-field monitor check."],
+    mistakes:["Thinking VAR reviews every decision — it only steps in for clear, obvious errors in four categories.","Expecting instant results — reviews can take time for accuracy."],
+    tip:"VAR doesn't replace the referee's judgement — it corrects clear mistakes only."},
+  {id:"extratime", title:"Extra Time", icon:"clock",
+    short:"Two additional 15-minute periods played when a knockout match is level after 90 minutes.",
+    diagram:"Played in full unless a golden-goal format applies, followed by penalties if still level.",
+    examples:["A cup semi-final drawn 1-1 goes to extra time.","A team scoring in extra time to avoid a shootout.","League matches simply ending in a draw — no extra time there."],
+    mistakes:["Expecting extra time in regular league fixtures — it's a knockout-competition feature.","Forgetting substitutions rules can extend for extra time in many competitions."],
+    tip:"Extra time only applies when a result is required — group and league games can end drawn."},
+  {id:"shootout", title:"Penalty Shootout", icon:"award",
+    short:"Deciding a drawn knockout match with alternating penalty kicks after extra time.",
+    diagram:"Five kicks each initially, then sudden-death rounds until one side has an unmatched score.",
+    examples:["A World Cup final settled 4-2 on penalties.","A goalkeeper substituted specifically before a shootout.","Sudden death after 5-5 through the initial round."],
+    mistakes:["Thinking every player must take a kick before anyone repeats — only true once the full squad has gone.","Assuming the shootout counts toward player or team statistics like open-play goals."],
+    tip:"Nerve matters as much as skill — shootouts are as mental as they are technical."},
+  {id:"subs", title:"Substitutions", icon:"users",
+    short:"Rules governing how many players a team may change during a match and how the process works.",
+    diagram:"Most competitions allow five substitutions from a named bench, made during set stoppages.",
+    examples:["A tiring forward replaced with fresh legs at 70 minutes.","An injured player forcing an early, unplanned change.","A team using all five subs across three separate stoppages."],
+    mistakes:["Assuming unlimited substitutions are allowed — competitions cap the number.","Forgetting a substituted player cannot return to the field."],
+    tip:"Once withdrawn, a player is done for the match — no re-entry, even in youth or amateur leagues typically."},
+  {id:"goalkeeper", title:"Goalkeeper Rules", icon:"shield",
+    short:"Special privileges and restrictions apply only to the goalkeeper inside their own penalty area.",
+    diagram:"Handling is allowed only within the box, and the six-second and back-pass rules limit time-wasting.",
+    examples:["A keeper catching a cross safely inside the box.","A back-pass from a teammate's foot that the keeper cannot handle.","A keeper holding the ball too long, penalised with an indirect free kick."],
+    mistakes:["Thinking keepers can handle any pass from a teammate — deliberate foot back-passes are banned from hand use.","Forgetting keepers are outfield players outside their own box."],
+    tip:"Outside the box, the goalkeeper is just another player — no hands allowed there."}
+];
+
+const CATEGORY_COLORS = {Beginner:"#22C55E",Rules:"#38BDF8",Skills:"#F59E0B",Dribbling:"#F97316",Passing:"#34D399",Shooting:"#EF4444",Defending:"#818CF8",Goalkeeping:"#EAB308",Tactics:"#A78BFA","Referee Signals":"#F472B6","Match Analysis":"#22D3EE"};
+
+const VIDEOS = [
+  {id:"v1",title:"Football Basics: Your First 10 Minutes",cat:"Beginner",duration:"8:12",views:"1.2M",difficulty:"Beginner",yt:"dQw4w9WgXcQ"},
+  {id:"v2",title:"Offside Explained With Diagrams",cat:"Rules",duration:"6:40",views:"980K",difficulty:"Beginner",yt:"dQw4w9WgXcQ"},
+  {id:"v3",title:"Close Control: First Touch Drills",cat:"Skills",duration:"11:05",views:"540K",difficulty:"Intermediate",yt:"dQw4w9WgXcQ"},
+  {id:"v4",title:"5 Dribbling Moves That Actually Work",cat:"Dribbling",duration:"9:30",views:"2.1M",difficulty:"Intermediate",yt:"dQw4w9WgXcQ"},
+  {id:"v5",title:"Passing Under Pressure",cat:"Passing",duration:"7:18",views:"410K",difficulty:"Intermediate",yt:"dQw4w9WgXcQ"},
+  {id:"v6",title:"Finishing Like a Striker",cat:"Shooting",duration:"10:02",views:"1.8M",difficulty:"Advanced",yt:"dQw4w9WgXcQ"},
+  {id:"v7",title:"1v1 Defending Fundamentals",cat:"Defending",duration:"8:55",views:"330K",difficulty:"Intermediate",yt:"dQw4w9WgXcQ"},
+  {id:"v8",title:"Goalkeeping: Shot-Stopping Technique",cat:"Goalkeeping",duration:"12:20",views:"290K",difficulty:"Advanced",yt:"dQw4w9WgXcQ"},
+  {id:"v9",title:"Reading the 4-3-3 Formation",cat:"Tactics",duration:"14:45",views:"760K",difficulty:"Advanced",yt:"dQw4w9WgXcQ"},
+  {id:"v10",title:"Every Referee Hand Signal Explained",cat:"Referee Signals",duration:"5:58",views:"610K",difficulty:"Beginner",yt:"dQw4w9WgXcQ"},
+  {id:"v11",title:"Breaking Down a Champions League Final",cat:"Match Analysis",duration:"16:33",views:"1.4M",difficulty:"Advanced",yt:"dQw4w9WgXcQ"},
+  {id:"v12",title:"Shooting Power: Plant Foot & Contact",cat:"Shooting",duration:"9:11",views:"890K",difficulty:"Beginner",yt:"dQw4w9WgXcQ"}
+];
+
+const QUIZ = [
+  {q:"What happens if a goalkeeper handles the ball outside the box?",options:["Yellow card only","Direct free kick, and often a card","Nothing, keepers are exempt","Automatic penalty"],a:1,why:"Outside the box, a goalkeeper is treated like any outfield player — deliberate handball is a direct free kick, and can be a red card if it denies a goal-scoring chance."},
+  {q:"What is offside?",options:["Standing in the opponent's half","Being nearer the goal line than the ball and second-last opponent when the ball is played","Touching the ball twice in a row","Running past the halfway line"],a:1,why:"Offside is judged at the moment the ball is played forward, based on the attacker's position relative to the second-last defender."},
+  {q:"What colour card means immediate dismissal?",options:["Yellow","Blue","Red","Green"],a:2,why:"A red card sends a player off immediately, leaving their team to finish the match a player short."},
+  {q:"How far must defenders retreat at a free kick?",options:["5 metres","9.15 metres (10 yards)","15 metres","No minimum distance"],a:1,why:"The required retreat distance is 9.15 metres, marked by a 10-yard rule in everyday commentary."},
+  {q:"Who can take a throw-in?",options:["The team that touched the ball last","The team that did NOT touch it last","Only the captain","Either team, referee's choice"],a:1,why:"Possession goes to the side that didn't put the ball out — the same logic used for corners and goal kicks, just reversed."},
+  {q:"Can you score directly from a throw-in?",options:["Yes, always","No, it must touch another player first","Only in extra time","Only if the goalkeeper is out of position"],a:1,why:"Like an indirect free kick, a throw-in needs a second touch before a goal can count."}
+];
+
+const GLOSSARY = [
+  {letter:"A",term:"Advantage",def:"Letting play continue after a foul because the fouled team benefits more from playing on."},
+  {letter:"A",term:"Assist",def:"The final pass or touch that directly leads to a goal."},
+  {letter:"B",term:"Bicycle Kick",def:"An overhead scissor-style volley struck while airborne, back to goal."},
+  {letter:"B",term:"Back-Pass",def:"A deliberate pass to the goalkeeper with the foot, which the keeper cannot then handle."},
+  {letter:"C",term:"Corner Kick",def:"A restart awarded to attackers when the ball goes out off a defender's last touch."},
+  {letter:"C",term:"Clean Sheet",def:"A match in which a team or goalkeeper concedes no goals."},
+  {letter:"D",term:"Dummy",def:"Letting the ball run past without touching it to deceive an opponent."},
+  {letter:"E",term:"Extra Time",def:"Two additional 15-minute periods played in knockout matches level after 90 minutes."},
+  {letter:"F",term:"Free Kick",def:"A restart awarded after a foul, either direct or indirect."},
+  {letter:"G",term:"Golden Goal",def:"A historic rule ending extra time instantly on the first goal scored (rarely used today)."},
+  {letter:"H",term:"Handball",def:"Illegal contact between the ball and a player's hand or arm."},
+  {letter:"H",term:"Hat-Trick",def:"Three goals scored by one player in a single match."},
+  {letter:"M",term:"Man-Marking",def:"A defensive scheme where each defender tracks one specific attacker."},
+  {letter:"O",term:"Offside",def:"An attacker positioned beyond the second-last defender when the ball is played to them."},
+  {letter:"P",term:"Penalty Kick",def:"A direct kick from the penalty spot, awarded for fouls inside the box."},
+  {letter:"P",term:"Press",def:"Applying coordinated pressure to force the opponent into mistakes."},
+  {letter:"R",term:"Red Card",def:"Immediate dismissal from the match for serious offences."},
+  {letter:"S",term:"Set Piece",def:"A rehearsed restart such as a corner or free kick."},
+  {letter:"T",term:"Tiki-Taka",def:"A possession-based style built on short, quick passing."},
+  {letter:"V",term:"VAR",def:"Video Assistant Referee — a review system for clear, obvious errors."},
+  {letter:"W",term:"Wall",def:"Defenders lined up to block a direct free kick."},
+  {letter:"Y",term:"Yellow Card",def:"A formal caution for unsporting conduct or persistent fouling."}
+];
+
+const NAV_LINKS = [["Home","home"],["Rules","rules"],["Video Library","video-library"],["Quiz","quiz"],["Glossary","glossary"],["About","about"],["Contact","contact"]];
+
+/* =====================================================================
+   NAV
+===================================================================== */
+let activeSection = "home";
+function renderNav(){
+  const links = NAV_LINKS.map(([label,id]) =>
+    `<button class="${activeSection===id?'active':''}" onclick="goTo('${id}')">${label}</button>`).join("");
+  document.getElementById("navLinks").innerHTML = links;
+  document.getElementById("mobileMenu").innerHTML = links;
+}
+function goTo(id){
+  activeSection = id;
+  renderNav();
+  document.getElementById("mobileMenu").style.display = "none";
+  if(id === "home"){ window.scrollTo({top:0,behavior:"smooth"}); return; }
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
+}
+function toggleMobileMenu(){
+  const m = document.getElementById("mobileMenu");
+  m.style.display = m.style.display === "flex" ? "none" : "flex";
+}
+function toggleSearch(){
+  const p = document.getElementById("searchPanel");
+  p.style.display = p.style.display === "block" ? "none" : "block";
+  if(p.style.display === "block") document.getElementById("searchInput").focus();
+}
+function doSearch(){
+  const q = document.getElementById("searchInput").value.toLowerCase().trim();
+  const box = document.getElementById("searchResults");
+  if(!q){ box.innerHTML=""; return; }
+  const results = [];
+  RULES.forEach(r=>{ if(r.title.toLowerCase().includes(q)) results.push({label:r.title,type:"Rule"}); });
+  VIDEOS.forEach(v=>{ if(v.title.toLowerCase().includes(q)) results.push({label:v.title,type:"Video"}); });
+  GLOSSARY.forEach(g=>{ if(g.term.toLowerCase().includes(q)) results.push({label:g.term,type:"Glossary"}); });
+  box.innerHTML = results.slice(0,6).map(r=>`<div class="search-result"><span>${r.label}</span><span class="tag">${r.type}</span></div>`).join("") || `<div class="search-result" style="color:var(--muted-2)">No matches</div>`;
+}
+document.addEventListener("click",(e)=>{
+  const panel = document.getElementById("searchPanel");
+  if(panel.style.display==="block" && !panel.contains(e.target) && e.target.closest('[data-feather="search"]')===null){
+    panel.style.display="none";
+  }
+});
+window.addEventListener("scroll",()=>{
+  document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 12);
+});
+
+/* =====================================================================
+   HERO STATS COUNT-UP
+===================================================================== */
+function countUp(el,target,duration){
+  const t0 = performance.now();
+  function tick(t){
+    const p = Math.min(1,(t-t0)/duration);
+    const eased = 1-Math.pow(1-p,3);
+    el.textContent = Math.round(target*eased) + "+";
+    if(p<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+new IntersectionObserver((entries,obs)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      countUp(document.getElementById("statRules"),100,1400);
+      countUp(document.getElementById("statVideos"),500,1400);
+      obs.disconnect();
+    }
+  });
+},{threshold:0.3}).observe(document.getElementById("hero"));
+
+/* =====================================================================
+   RULES
+===================================================================== */
+function renderRules(){
+  document.getElementById("rulesGrid").innerHTML = RULES.map(r=>`
+    <div class="rule-card glass rounded-2xl" onclick="openRuleModal('${r.id}')">
+      <div class="rule-icon"><span data-feather="${r.icon}"></span></div>
+      <h4>${r.title}</h4>
+      <p>${r.short}</p>
+      <div class="read-more">Read more <span data-feather="chevron-right"></span></div>
+    </div>`).join("");
+  feather.replace();
+}
+function openRuleModal(id){
+  const r = RULES.find(x=>x.id===id);
+  document.getElementById("ruleModalContent").innerHTML = `
+    <div class="modal-head">
+      <div class="rule-icon"><span data-feather="${r.icon}"></span></div>
+      <h3>${r.title}</h3>
+    </div>
+    <p class="lead">${r.short}</p>
+    <div class="modal-block"><div class="label">FIFA Diagram</div><p>${r.diagram}</p></div>
+    <div class="modal-sub"><div class="label2">Examples</div><ul>${r.examples.map(e=>`<li><span data-feather="check"></span>${e}</li>`).join("")}</ul></div>
+    <div class="modal-sub"><div class="label2">Common Mistakes</div><ul>${r.mistakes.map(e=>`<li><span data-feather="alert-triangle"></span>${e}</li>`).join("")}</ul></div>
+    <div class="tip-box"><strong>Tip for beginners — </strong>${r.tip}</div>`;
+  document.getElementById("ruleModal").classList.add("open");
+  feather.replace();
+}
+function closeRuleModal(){ document.getElementById("ruleModal").classList.remove("open"); }
+
+/* =====================================================================
+   VIDEOS
+===================================================================== */
+let videoCat = "All", videoDiff = "All";
+const favs = {};
+function renderVideoFilters(){
+  const diffs = ["All","Beginner","Intermediate","Advanced"];
+  document.getElementById("diffRow").innerHTML = diffs.map(d=>
+    `<button class="pill ${videoDiff===d?'active':''}" onclick="setDiff('${d}')">${d}</button>`).join("");
+  const cats = ["All",...Object.keys(CATEGORY_COLORS)];
+  document.getElementById("catRow").innerHTML = cats.map(c=>
+    `<button class="pill cat ${videoCat===c?'active':''}" onclick="setCat('${c}')">${c}</button>`).join("");
+}
+function setDiff(d){ videoDiff=d; renderVideoFilters(); renderVideos(); }
+function setCat(c){ videoCat=c; renderVideoFilters(); renderVideos(); }
+function renderVideos(){
+  const query = document.getElementById("videoSearch").value.toLowerCase();
+  const filtered = VIDEOS.filter(v=>{
+    if(videoCat!=="All" && v.cat!==videoCat) return false;
+    if(videoDiff!=="All" && v.difficulty!==videoDiff) return false;
+    if(query && !v.title.toLowerCase().includes(query)) return false;
+    return true;
+  });
+  document.getElementById("videoGrid").innerHTML = filtered.map(v=>`
+    <div class="video-card glass rounded-2xl">
+      <div class="video-thumb" style="background:linear-gradient(135deg, ${CATEGORY_COLORS[v.cat]}33, #0F172A);" onclick="openPlayer('${v.id}')">
+        <span class="cat-badge" style="background:${CATEGORY_COLORS[v.cat]}">${v.cat}</span>
+        <span class="play-btn"><span data-feather="play"></span></span>
+        <span class="duration-badge"><span data-feather="clock"></span>${v.duration}</span>
+      </div>
+      <div class="video-info">
+        <h4>${v.title}</h4>
+        <div class="video-meta">
+          <div class="video-meta-left"><span><span data-feather="eye"></span>${v.views}</span><span>${v.difficulty}</span></div>
+          <button class="fav-btn ${favs[v.id]?'active':''}" onclick="toggleFav('${v.id}')"><span data-feather="heart"></span></button>
+        </div>
+      </div>
+    </div>`).join("");
+  document.getElementById("videoEmpty").style.display = filtered.length ? "none" : "block";
+  feather.replace();
+}
+function toggleFav(id){ favs[id] = !favs[id]; renderVideos(); }
+function openPlayer(id){
+  const v = VIDEOS.find(x=>x.id===id);
+  document.getElementById("playerFrame").innerHTML = `<iframe src="https://www.youtube.com/embed/${v.yt}?autoplay=1" title="${v.title}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+  document.getElementById("playerTitle").textContent = v.title;
+  document.getElementById("playerModal").classList.add("open");
+}
+function closePlayer(){
+  document.getElementById("playerModal").classList.remove("open");
+  document.getElementById("playerFrame").innerHTML = "";
+}
+
+/* =====================================================================
+   QUIZ
+===================================================================== */
+let qIdx=0, qScore=0, qSelected=null, qTimer=15, qInterval=null;
+function startQuiz(){
+  qIdx=0; qScore=0; qSelected=null;
+  document.getElementById("quizStart").style.display="none";
+  document.getElementById("quizDone").style.display="none";
+  document.getElementById("quizArea").style.display="block";
+  loadQuestion();
+}
+function loadQuestion(){
+  qSelected=null; qTimer=15;
+  const q = QUIZ[qIdx];
+  document.getElementById("qCount").textContent = `Question ${qIdx+1} of ${QUIZ.length}`;
+  document.getElementById("qProgress").style.width = `${(qIdx/QUIZ.length)*100}%`;
+  document.getElementById("quizQuestion").textContent = q.q;
+  document.getElementById("quizOptions").innerHTML = q.options.map((opt,i)=>
+    `<button class="quiz-opt" onclick="answerQuiz(${i})">${opt}</button>`).join("");
+  document.getElementById("quizWhy").style.display="none";
+  document.getElementById("quizNextBtn").classList.remove("enabled");
+  updateTimerUI();
+  clearInterval(qInterval);
+  qInterval = setInterval(()=>{
+    qTimer--;
+    updateTimerUI();
+    if(qTimer<=0){ clearInterval(qInterval); if(qSelected===null) answerQuiz(-1); }
+  },1000);
+}
+function updateTimerUI(){
+  document.getElementById("qTimerVal").textContent = qTimer;
+  document.getElementById("qTimer").classList.toggle("warn", qTimer<=5);
+}
+function answerQuiz(i){
+  if(qSelected!==null) return;
+  clearInterval(qInterval);
+  qSelected=i;
+  const q = QUIZ[qIdx];
+  if(i===q.a) qScore++;
+  const btns = document.querySelectorAll("#quizOptions .quiz-opt");
+  btns.forEach((b,idx)=>{
+    b.classList.add("locked");
+    if(idx===q.a) b.classList.add("correct");
+    else if(idx===i) b.classList.add("wrong");
+    else b.classList.add("dim");
+  });
+  const why = document.getElementById("quizWhy");
+  why.textContent = q.why;
+  why.style.display="block";
+  document.getElementById("quizNextBtn").classList.add("enabled");
+}
+function nextQuestion(){
+  if(qSelected===null) return;
+  if(qIdx+1 >= QUIZ.length){ finishQuiz(); return; }
+  qIdx++;
+  loadQuestion();
+}
+function finishQuiz(){
+  clearInterval(qInterval);
+  document.getElementById("quizArea").style.display="none";
+  document.getElementById("quizDone").style.display="block";
+  document.getElementById("quizScore").textContent = `${qScore} / ${QUIZ.length}`;
+  const verdict = qScore===QUIZ.length ? "Referee-level knowledge — nothing gets past you." :
+    qScore>=QUIZ.length/2 ? "Solid grasp of the fundamentals." : "A good starting point — the rules section will help.";
+  document.getElementById("quizVerdict").textContent = verdict;
+  document.getElementById("starRow").innerHTML = Array.from({length:QUIZ.length}).map((_,i)=>
+    `<span data-feather="star" class="${i<qScore?'filled':''}"></span>`).join("");
+  feather.replace();
+}
+
+/* =====================================================================
+   GLOSSARY
+===================================================================== */
+let activeLetter = "All";
+function renderGlossaryFilters(){
+  const letters = ["All",...new Set(GLOSSARY.map(g=>g.letter))];
+  document.getElementById("letterRow").innerHTML = letters.map(l=>
+    `<button class="letter-btn ${activeLetter===l?'active':''}" onclick="setLetter('${l}')">${l}</button>`).join("");
+}
+function setLetter(l){ activeLetter=l; renderGlossaryFilters(); renderGlossary(); }
+function renderGlossary(){
+  const query = document.getElementById("glossSearch").value.toLowerCase();
+  const filtered = GLOSSARY.filter(g=>{
+    if(activeLetter!=="All" && g.letter!==activeLetter) return false;
+    if(query && !g.term.toLowerCase().includes(query)) return false;
+    return true;
+  });
+  document.getElementById("glossaryGrid").innerHTML = filtered.map(g=>
+    `<div class="gloss-card glass rounded-2xl"><span class="term">${g.term}</span><p>${g.def}</p></div>`).join("");
+}
+
+/* =====================================================================
+   CONTACT
+===================================================================== */
+function submitContact(e){
+  e.preventDefault();
+  document.getElementById("contactForm").style.display="none";
+  document.getElementById("contactDone").style.display="block";
+  feather.replace();
+}
+/* =====================================================================
+   INIT
+===================================================================== */
+document.getElementById("year").textContent = new Date().getFullYear();
+renderNav();
+renderRules();
+renderVideoFilters();
+renderVideos();
+renderGlossaryFilters();
+renderGlossary();
+feather.replace();
+</script>
+</body>
+</html>
